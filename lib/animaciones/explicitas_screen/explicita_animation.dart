@@ -8,9 +8,11 @@ class ExplicitAnimationExample extends StatefulWidget {
       ExplicitAnimationExampleState();
 }
 
- State<ExplicitAnimationExample> with SingleTickerProviderStateMixin {
+class ExplicitAnimationExampleState extends State<ExplicitAnimationExample>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  bool _isExpanded = false;
 
   @override
   void initState() {
@@ -22,6 +24,11 @@ class ExplicitAnimationExample extends StatefulWidget {
     _animation = Tween<double>(begin: 0, end: 300).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
+    _controller.addListener(() {
+      setState(() {
+        _isExpanded = _controller.status == AnimationStatus.completed;
+      });
+    });
   }
 
   @override
@@ -30,7 +37,7 @@ class ExplicitAnimationExample extends StatefulWidget {
     super.dispose();
   }
 
-  void _startAnimation() {
+  void _toggleAnimation() {
     if (_controller.status == AnimationStatus.completed) {
       _controller.reverse();
     } else {
@@ -55,8 +62,8 @@ class ExplicitAnimationExample extends StatefulWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _startAnimation,
-        child: const Icon(Icons.play_arrow),
+        onPressed: _toggleAnimation,
+        child: Icon(_isExpanded ? Icons.stop : Icons.play_arrow),
       ),
     );
   }

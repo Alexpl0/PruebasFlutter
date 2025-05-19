@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ImplicitaAnimationExample extends StatefulWidget {
+  const ImplicitaAnimationExample({super.key});
+
   @override
   ImplicitaAnimationExampleState createState() => ImplicitaAnimationExampleState();
 }
@@ -11,15 +13,15 @@ class ImplicitaAnimationExampleState extends State<ImplicitaAnimationExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Implicita Animation')),
+      appBar: AppBar(title: const Text('Implicita Animation')),
       body: Center(
         child: AnimatedContainer(
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           curve: Curves.fastOutSlowIn,
           width: _big ? 200 : 100,
           height: _big ? 200 : 100,
           color: _big ? Colors.blue : Colors.orange,
-          child: Center(
+          child: const Center(
             child: Text(
               'Implicita Animation',
               style: TextStyle(color: Colors.white),
@@ -33,7 +35,7 @@ class ImplicitaAnimationExampleState extends State<ImplicitaAnimationExample> {
             _big = !_big;
           });
         },
-        child: Icon(Icons.play_arrow),
+        child: const Icon(Icons.play_arrow),
       ),
     );
   }
