@@ -8,54 +8,59 @@ class ExplicitAnimationExample extends StatefulWidget {
       ExplicitAnimationExampleState();
 }
 
- State<ExplicitAnimationExample> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
+class ExplicitAnimationExampleState extends State<ExplicitAnimationExample>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
     );
-    _animation = Tween<double>(begin: 0, end: 300).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    animation = Tween<double>(begin: 0, end: 300).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
-  void _startAnimation() {
-    if (_controller.status == AnimationStatus.completed) {
-      _controller.reverse();
+  void startAnimation() {
+    if (controller.status == AnimationStatus.completed) {
+      controller.reverse();
     } else {
-      _controller.forward();
+      controller.forward();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Aquí debes construir tu widget animado.
+    // Por ejemplo, puedes usar un AnimatedBuilder.
     return Scaffold(
-      appBar: AppBar(title: const Text('Explicit Animation Example')),
+      appBar: AppBar(
+        title: const Text('Explicit Animation Example'),
+      ),
       body: Center(
         child: AnimatedBuilder(
-          animation: _animation,
+          animation: animation,
           builder: (context, child) {
             return Container(
-              width: _animation.value,
-              height: _animation.value,
+              width: animation.value,
+              height: animation.value,
               color: Colors.blue,
             );
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _startAnimation,
+        onPressed: startAnimation,
         child: const Icon(Icons.play_arrow),
       ),
     );
