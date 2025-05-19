@@ -8,30 +8,25 @@ class ExplicitAnimationExample extends StatefulWidget {
       ExplicitAnimationExampleState();
 }
 
- State<ExplicitAnimationExample> with SingleTickerProviderStateMixin {
+class ExplicitAnimationExampleState extends State<ExplicitAnimationExample> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
+    _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
     );
-    animation = Tween<double>(begin: 0, end: 300).animate(
-      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
+    _animation = Tween<double>(begin: 0, end: 300).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
-    _controller.addListener(() {
-      setState(() {
-        _isExpanded = _controller.status == AnimationStatus.completed;
-      });
-    });
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -39,7 +34,7 @@ class ExplicitAnimationExample extends StatefulWidget {
     if (_controller.status == AnimationStatus.completed) {
       _controller.reverse();
     } else {
-      controller.forward();
+      _controller.forward();
     }
   }
 
@@ -53,11 +48,11 @@ class ExplicitAnimationExample extends StatefulWidget {
       ),
       body: Center(
         child: AnimatedBuilder(
-          animation: animation,
+          animation: _animation,
           builder: (context, child) {
             return Container(
-              width: animation.value,
-              height: animation.value,
+              width: _animation.value,
+              height: _animation.value,
               color: Colors.blue,
             );
           },
