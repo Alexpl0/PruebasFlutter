@@ -1,5 +1,6 @@
 import 'package:animaciones/animaciones/explicitas_screen/explicita_animation_example.dart';
 import 'package:animaciones/animaciones/implicitas_screen/implicita_animation.dart';
+import 'package:animaciones/animaciones/screens/explicitas_implicitas_screen.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -16,6 +17,7 @@ class AnimacionesApp extends StatelessWidget{
       theme: ThemeData(primarySwatch: Colors.indigo),
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
+
     );
   }
 }
@@ -49,6 +51,17 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: const Text('Animación Explícita'),
+            ),
+
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ExplicitasImplicitasScreen()),
+                );
+              },
+              child: const Text('Animación Opacidad + Rotación'),
             ),
           ],
         ),
