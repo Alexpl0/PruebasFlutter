@@ -4,7 +4,8 @@ class ImplicitaAnimationExample extends StatefulWidget {
   const ImplicitaAnimationExample({super.key});
 
   @override
-  ImplicitaAnimationExampleState createState() => ImplicitaAnimationExampleState();
+  State<ImplicitaAnimationExample> createState() =>
+      ImplicitaAnimationExampleState();
 }
 
 class ImplicitaAnimationExampleState extends State<ImplicitaAnimationExample> {
@@ -13,29 +14,30 @@ class ImplicitaAnimationExampleState extends State<ImplicitaAnimationExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Implicita Animation')),
+      appBar: AppBar(
+        title: const Text('Animación Implícita'),
+      ),
       body: Center(
-        child: AnimatedContainer(
-          duration: const Duration(seconds: 2),
-          curve: Curves.fastOutSlowIn,
-          width: _big ? 200 : 100,
-          height: _big ? 200 : 100,
-          color: _big ? Colors.blue : Colors.orange,
-          child: const Center(
-            child: Text(
-              'Implicita Animation',
-              style: TextStyle(color: Colors.white),
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              _big = !_big;
+            });
+          },
+          child: AnimatedContainer(
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeInOut,
+            width: _big ? 200 : 100,
+            height: _big ? 200 : 100,
+            color: _big ? Colors.blue : Colors.red,
+            child: const Center(
+              child: Text(
+                'Toca aquí',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _big = !_big;
-          });
-        },
-        child: const Icon(Icons.play_arrow),
       ),
     );
   }
