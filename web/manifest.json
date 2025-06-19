@@ -1,6 +1,6 @@
 {
-    "name": "animaciones",
-    "short_name": "animaciones",
+    "name": "tareas",
+    "short_name": "tareas",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

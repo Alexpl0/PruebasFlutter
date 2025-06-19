@@ -1,71 +1,41 @@
-import 'package:animaciones/animaciones/explicitas_screen/explicita_animation_example.dart';
-import 'package:animaciones/animaciones/implicitas_screen/implicita_animation.dart';
-import 'package:animaciones/animaciones/screens/explicitas_implicitas_screen.dart';
+// main.dart
+//https://github.com/flutter-avanzado-ucq/proyecto-animaciones-avanzadas-Alexpl0
 import 'package:flutter/material.dart';
+import 'screens/tarea_screen.dart';
+import 'tema/tema_app.dart'; // # 18 de Junio; se agregó importación de tema personalizado
+import 'package:provider/provider.dart';
+import 'provider_task/task_provider.dart';
 
-void main(){
-  runApp(const AnimacionesApp());
+import 'services/notification_service.dart'; // # 18 de Junio; se agregó servicio de notificaciones
+
+
+void main() async { // # 18 de Junio; se agregó async para inicialización de servicios
+  WidgetsFlutterBinding.ensureInitialized(); // # 18 de Junio; se agregó inicialización de Flutter
+
+  // # 18 de Junio; se agregó inicialización de notificaciones
+  await NotificationService.initializeNotifications();
+
+  // # 18 de Junio; se agregó solicitud de permisos para notificaciones
+  await NotificationService.requestPermission();
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => TaskProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
-class AnimacionesApp extends StatelessWidget{
-  const AnimacionesApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Demo de Animaciones',
-      theme: ThemeData(primarySwatch: Colors.indigo),
-      home: const HomeScreen(),
+    return MaterialApp( // # 18 de Junio; se removió el segundo ChangeNotifierProvider duplicado
       debugShowCheckedModeBanner: false,
-
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Animaciones en Flutter')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ImplicitaAnimationExample()),
-                );
-              },
-              child: const Text('Animación Implícita'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ExplicitAnimationExample()),
-                );
-              },
-              child: const Text('Animación Explícita'),
-            ),
-
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ExplicitasImplicitasScreen()),
-                );
-              },
-              child: const Text('Animación Opacidad + Rotación'),
-            ),
-          ],
-        ),
-      ),
+      title: 'Tareas Pro',
+      theme: AppTheme.theme, // # 18 de Junio; se cambió de ThemeData(primarySwatch: Colors.deepPurple) a AppTheme.theme
+      home: const TaskScreen(),
     );
   }
 }

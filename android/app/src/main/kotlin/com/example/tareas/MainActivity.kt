@@ -1,4 +1,4 @@
-package com.example.animaciones
+package com.example.tareas
 
 import io.flutter.embedding.android.FlutterActivity
 
