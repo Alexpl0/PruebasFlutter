@@ -1,0 +1,37 @@
+lugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'dev.flutter.flutter-gradle-plugin'
+}
+
+android {
+    compileSdkVersion 33 // Ajustado según la práctica, si 35 no es compatible
+    ndkVersion flutter.ndkVersion
+
+    defaultConfig {
+        applicationId "com.example.proyecto_animaciones_avanzadas_alexpl0"
+        minSdkVersion 21
+        targetSdkVersion 33 // Ajustado según la práctica, si 35 no es compatible
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11 // Cambiado a Java 11 según compatibilidad
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
